@@ -22,9 +22,10 @@ for file in files:
         BLADE = pd.read_csv(file, sep='\t', header=None)
         BLADE.columns = ['r', 'beta', 'c', 't/c']
 
+print(BLADE)
 
 """ 
-Profiles stored as with keys:
+Profiles stored as dictionary with keys:
 FFA-W3-xxx
 
 Display first five rows of the panda dataframe by:
