@@ -11,19 +11,6 @@ files = [os.path.join(DATA_PATH, f)
 
 # Get profile data
 
-PROFILES = {}
-for file in files:
-    filename = file.split('\\')[-1].split('.txt')[0]
-    if filename.startswith('FFA'):
-        PROFILES[filename] = pd.read_csv(file, sep="\t", header=None)
-    elif filename == 'cylinder':
-        CYLINDER = pd.read_csv(file, sep='\t', header=None)
-    elif filename == 'bladedat':
-        BLADE = pd.read_csv(file, sep='\t', header=None)
-        BLADE.columns = ['r', 'beta', 'c', 't/c']
-
-print(BLADE)
-
 """ 
 Profiles stored as dictionary with keys:
 FFA-W3-xxx
@@ -31,3 +18,17 @@ FFA-W3-xxx
 Display first five rows of the panda dataframe by:
 PROFILES[profile-name].head()
 """
+
+PROFILES = {}
+for file in files:
+    filename = file.split('\\')[-1].split('.txt')[0]
+    if filename.startswith('FFA'):
+        name = filename.split('-')[-1]
+        PROFILES[name] = pd.read_csv(file, sep="\t", header=None)
+        PROFILES[name].columns = ["alpha", "Cl", "Cd", "Cm"]
+    elif filename == 'cylinder':
+        CYLINDER = pd.read_csv(file, sep='\t', header=None)
+        CYLINDER.columns = ["alpha", "Cl", "Cd", "Cm"]
+    elif filename == 'bladedat':
+        BLADE = pd.read_csv(file, sep='\t', header=None)
+        BLADE.columns = ['r', 'beta', 'c', 't/c']
